@@ -5,6 +5,7 @@ import requests
 import webbrowser
 import tkinter as tk
 import threading
+import json
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
 
@@ -41,7 +42,7 @@ def check_in(retry=3):
     link = endpoint + '/checkIn.php?username=' + username.get() + '&' + 'token=' + token
     try:
         http = requests.get(link, verify=False)
-        data = http.content.decode('utf-8').json()
+        data = json.loads(http.content.decode('utf-8'))
         if (data['code'] == 200):
             tip('签到成功！')
         else:
@@ -69,7 +70,7 @@ def get_token(retry=3):
     link = endpoint + '/getToken.php?username=' + username.get() + '&' + 'password=' + password.get()
     try:
         http = requests.get(link, verify=False)
-        data = http.content.decode('utf-8').json()
+        data = json.loads(http.content.decode('utf-8'))
         if (data['code'] == 200):
             print(data)
             token = data['body']
@@ -81,11 +82,12 @@ def get_token(retry=3):
                 print('获取Token失败')
                 tip('获取Token失败')
                 is_keep = False
-    except Exception:
+    except Exception as reason:
+        print(reason)
         if (retry != 0):
             get_token(retry - 1)
         else:
-            print('获取Token失败')
+            print('获取Token失败1')
             tip('获取Token失败')
             is_keep = False
 
