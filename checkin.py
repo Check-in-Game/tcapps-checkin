@@ -140,9 +140,10 @@ def create_ui():
     global label_tip
     global username
     global password
+    global VERSION
 
     win = tk.Tk()
-    win.title('Check-in Game')
+    win.title('Check-in Game ' + VERSION)
     win.minsize(280, 80)
     win.resizable(False, False)
 
@@ -181,6 +182,8 @@ def main():
     global password
     global token
     global is_keep
+    global VERSION
+    VERSION = '1.0.0'
     is_keep = False
     endpoint = 'https://checkin.tcapps.twocola.com/'
     username = ''
