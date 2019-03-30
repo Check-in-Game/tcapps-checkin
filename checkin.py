@@ -2,7 +2,7 @@
 
 import time
 import requests
-import json
+import webbrowser
 import tkinter as tk
 import threading
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
@@ -41,7 +41,7 @@ def check_in(retry=3):
     link = endpoint + '/checkIn.php?username=' + username.get() + '&' + 'token=' + token
     try:
         http = requests.get(link, verify=False)
-        data = json.loads(http.content.decode('utf-8'))
+        data = http.content.decode('utf-8').json()
         if (data['code'] == 200):
             tip('签到成功！')
         else:
@@ -69,7 +69,7 @@ def get_token(retry=3):
     link = endpoint + '/getToken.php?username=' + username.get() + '&' + 'password=' + password.get()
     try:
         http = requests.get(link, verify=False)
-        data = json.loads(http.content.decode('utf-8'))
+        data = http.content.decode('utf-8').json()
         if (data['code'] == 200):
             print(data)
             token = data['body']
@@ -165,7 +165,12 @@ def create_ui():
     btn_login.grid(row=0, rowspan=2, column=2, padx=5, pady=2, sticky=tk.N+tk.S)
 
     label_charts = tk.Label(win, text='排行榜', fg='blue')
-    label_charts.grid(row=2, column=0, columnspan=2, padx=5, pady=1, sticky=tk.W)
+    label_charts.bind('<Button-1>', lambda x: webbrowser.open(endpoint))
+    label_charts.grid(row=2, column=0, padx=5, pady=1, sticky=tk.W)
+
+    label_charts = tk.Label(win, text='检查更新', fg='blue')
+    label_charts.bind('<Button-1>', lambda x: webbrowser.open(endpoint + '/checkUpdate.html?version=' + VERSION))
+    label_charts.grid(row=2, column=1, padx=5, pady=1, sticky=tk.W)
 
     label_counter = tk.Label(win, text='0', fg='red')
     label_counter.grid(row=2, column=2, padx=5, pady=1, sticky=tk.E)
@@ -183,9 +188,9 @@ def main():
     global token
     global is_keep
     global VERSION
-    VERSION = '1.0.0'
+    VERSION = '1.0.1'
     is_keep = False
-    endpoint = 'https://checkin.tcapps.twocola.com/'
+    endpoint = 'https://checkin.tcapps.twocola.com'
     username = ''
     password = ''
     token = ''

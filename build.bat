@@ -1,2 +1,2 @@
-pyinstaller -F -w .\checkin.py
+pyinstaller -F -i .\icon.ico -w .\checkin.py
 pause
