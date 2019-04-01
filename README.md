@@ -12,6 +12,6 @@
 - 到[发布页](https://github.com/jokin1999/tcapps-checkin/releases)或[镜像站](https://appsmirror.twocola.com/)下载签到工具
 - 打开工具登录账户进行签到
 
-## 隐私相关
+## 项目情况
 
-本工具承诺不收集任何与TCApps相关的信息。
+本项目已经终止官方支持，由社区维护。
