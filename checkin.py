@@ -2,10 +2,10 @@
 
 import time
 import requests
-import webbrowser
 import tkinter as tk
 import threading
 import json
+import base64
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
 
@@ -39,11 +39,12 @@ def check_in(retry=3):
     global username
     global token
     global is_keep
-    link = endpoint + '/checkIn.php?username=' + username.get() + '&' + 'token=' + token
+    link = endpoint + '/api/checkIn/' + username.get() + '/' + token
     try:
         http = requests.get(link, verify=False)
         data = json.loads(http.content.decode('utf-8'))
-        if (data['code'] == 200):
+        print(data)
+        if (data['errno'] == 0):
             tip('签到成功！')
         else:
             if (retry != 0):
@@ -67,13 +68,16 @@ def get_token(retry=3):
     global password
     global token
     global is_keep
-    link = endpoint + '/getToken.php?username=' + username.get() + '&' + 'password=' + password.get()
+    b64password = base64.b64encode(password.get().encode('utf-8'))
+    b64password = str(b64password, 'utf-8')
+    # link = endpoint + '/api/getToken/' + username.get() + '/' + base64.b64encode(password.get())
+    link = endpoint + '/api/getToken/' + username.get() + '/' + b64password
     try:
         http = requests.get(link, verify=False)
         data = json.loads(http.content.decode('utf-8'))
-        if (data['code'] == 200):
+        if (data['errno'] == 0):
             print(data)
-            token = data['body']
+            token = data['body']['token']
             tip('获取Token成功')
         else:
             if (retry != 0):
@@ -166,13 +170,8 @@ def create_ui():
     btn_login = tk.Button(win, text="登录并签到", command=login)
     btn_login.grid(row=0, rowspan=2, column=2, padx=5, pady=2, sticky=tk.N+tk.S)
 
-    label_charts = tk.Label(win, text='排行榜', fg='blue')
-    label_charts.bind('<Button-1>', lambda x: webbrowser.open(endpoint))
-    label_charts.grid(row=2, column=0, padx=5, pady=1, sticky=tk.W)
-
-    label_charts = tk.Label(win, text='检查更新', fg='blue')
-    label_charts.bind('<Button-1>', lambda x: webbrowser.open(endpoint + '/checkUpdate.html?version=' + VERSION))
-    label_charts.grid(row=2, column=1, padx=5, pady=1, sticky=tk.W)
+    label_charts = tk.Label(win, text='checkin.tcapps.twocola.com', fg='blue')
+    label_charts.grid(row=2, column=0, columnspan=3, padx=5, pady=1, sticky=tk.W)
 
     label_counter = tk.Label(win, text='0', fg='red')
     label_counter.grid(row=2, column=2, padx=5, pady=1, sticky=tk.E)
@@ -190,7 +189,7 @@ def main():
     global token
     global is_keep
     global VERSION
-    VERSION = '1.0.1'
+    VERSION = '1.0.2'
     is_keep = False
     endpoint = 'https://checkin.tcapps.twocola.com'
     username = ''
