@@ -6,6 +6,7 @@ import tkinter as tk
 import threading
 import json
 import base64
+import webbrowser
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
 
@@ -147,6 +148,7 @@ def create_ui():
     global username
     global password
     global VERSION
+    global endpoint
 
     win = tk.Tk()
     win.title('Check-in Game ' + VERSION)
@@ -170,7 +172,8 @@ def create_ui():
     btn_login = tk.Button(win, text="登录并签到", command=login)
     btn_login.grid(row=0, rowspan=2, column=2, padx=5, pady=2, sticky=tk.N+tk.S)
 
-    label_charts = tk.Label(win, text='checkin.tcapps.twocola.com', fg='blue')
+    label_charts = tk.Label(win, text='打开官网', fg='blue')
+    label_charts.bind('<Button-1>', func=lambda x: webbrowser.open(endpoint))
     label_charts.grid(row=2, column=0, columnspan=3, padx=5, pady=1, sticky=tk.W)
 
     label_counter = tk.Label(win, text='0', fg='red')
@@ -189,7 +192,7 @@ def main():
     global token
     global is_keep
     global VERSION
-    VERSION = '1.0.2'
+    VERSION = '1.0.3'
     is_keep = False
     endpoint = 'https://checkin.tcapps.twocola.com'
     username = ''
