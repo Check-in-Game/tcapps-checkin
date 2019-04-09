@@ -11,7 +11,7 @@
 ## 使用方法
 
 - 登录官网注册账户
-- 到[发布页](https://github.com/jokin1999/tcapps-checkin/releases)或[镜像站](https://appsmirror.twocola.com/)下载签到工具
+- 到[发布页](https://github.com/jokin1999/tcapps-checkin/releases)下载签到工具
 - 在`checkin.py`文件的所属目录下使用命令行（如下）或双击`run.bat`
 ```python
 python checkin.py
