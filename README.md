@@ -16,3 +16,13 @@
 ```python
 python checkin.py
 ```
+
+## 依赖
+
+- requests
+
+## 依赖安装
+
+```python
+pip install [依赖包名]
+```
