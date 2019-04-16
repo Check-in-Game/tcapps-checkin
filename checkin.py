@@ -192,9 +192,9 @@ def main():
     global token
     global is_keep
     global VERSION
-    VERSION = '1.0.3'
+    VERSION = '1.0.4'
     is_keep = False
-    endpoint = 'https://checkin.tcapps.twocola.com'
+    endpoint = 'https://checkin.twocola.com'
     username = ''
     password = ''
     token = ''
