@@ -6,7 +6,7 @@
 
 此工具仅用于进行TCApps签到游戏的签到。
 
-官网网站：[https://checkin.tcapps.twocola.com](https://checkin.tcapps.twocola.com)
+官网网站：[https://checkin.twocola.com](https://checkin.twocola.com)
 
 ## 使用方法
 
