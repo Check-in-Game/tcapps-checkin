@@ -117,7 +117,7 @@ def keeper():
         check_in()
         # 暂停5分钟
         if (is_keep is True):
-            counter(5 * 60)
+            counter(10 * 60)
     release()
 
 
@@ -192,7 +192,7 @@ def main():
     global token
     global is_keep
     global VERSION
-    VERSION = '1.0.4'
+    VERSION = '1.0.5'
     is_keep = False
     endpoint = 'https://checkin.twocola.com'
     username = ''
