@@ -53,14 +53,14 @@ def check_in(retry=3):
                 check_in(retry - 1)
             else:
                 print('签到失败')
-                tip('签到失败，延迟5分钟')
+                tip('签到失败，延迟10分钟')
     except Exception:
         if (retry != 0):
             tip('签到失败，重试')
             check_in(retry - 1)
         else:
             print('签到失败')
-            tip('签到失败，延迟5分钟')
+            tip('签到失败，延迟10分钟')
 
 
 def get_token(retry=3):
@@ -115,7 +115,7 @@ def keeper():
         get_token()
         # 签到
         check_in()
-        # 暂停5分钟
+        # 暂停10分钟
         if (is_keep is True):
             counter(10 * 60)
     release()
